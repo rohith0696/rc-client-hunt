@@ -23,4 +23,5 @@ export default [
         Attachments: '',
         'Quest-Location': 'Horizons West Apartments'
 
-    }];
+    }
+];

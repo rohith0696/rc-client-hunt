@@ -8,7 +8,7 @@ import locationsArray from '../init-locations.js';
 
 // helper functions....................
 let currentlat, currentlon;
-let error;
+let error = true;
 
 // event handlers......................
 
@@ -28,36 +28,36 @@ async function getLocation() {
  */
 async function locationHandler() {
     const locText = await getLocation();
-    // document.getElementById('locationAnswer').innerHTML = locText;
-    console.log("------location handler")
+
     currentlat = locText.coords.latitude;
-    document.getElementById("device-lat").innerHTML =  currentlat.toFixed(6);
+    document.getElementById("device-lat").innerHTML = currentlat.toFixed(6);
     currentlon = locText.coords.longitude;
     document.getElementById("device-long").innerHTML = currentlon.toFixed(6);
 
 
     locationsArray.forEach(function (value) {
-        console.log(value,"---inside location array")
         if (isInside(value.latitude, value.longitude)) {
-            console.log(value.name,"----inside if")
-
-            
-     document.getElementById("locationAnswer").innerHTML = value.Name;       
-     error = false;
+           
+            document.getElementById("locationAnswer").innerHTML = value.Name;
+            let utterance = new SpeechSynthesisUtterance("You have reached " + value.Name);
+            speechSynthesis.speak(utterance);
+            error = false;
         }
     });
 
-    if(error)
-    {
+    if (error) {
+        console.log("error is here")
         document.getElementById("error-message").innerHTML = "You are not near to any place.";
-    }else {
+        let utterance = new SpeechSynthesisUtterance("You are not near to any place.");
+        speechSynthesis.speak(utterance);
+    } else {
         document.getElementById("error-message").innerHTML = "";
     }
 }
 
-function clearErrorText() {
-    document.getElementById('error-message').innerHTML = '';
-}
+// function clearErrorText() {
+//     document.getElementById('error-message').innerHTML = '';
+// }
 
 //Calculates distance
 function isInside(questLat, questLon) {
@@ -85,7 +85,7 @@ function distanceBetweenLocations(questLat, questLon) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const d = R * c;
-    return d; 
+    return d;
 }
 
 // declare main method................
