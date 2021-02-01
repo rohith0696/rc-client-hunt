@@ -23,5 +23,15 @@ export default [
         Attachments: '',
         'Quest-Location': 'Horizons West Apartments'
 
+    },
+    {
+        Name: 'B D Owens Library',
+        latitude: 40.353877,
+        longitude: -94.885974,
+        Notes: 'circle',
+        Attachments: '',
+        'Quest-Location': 'Horizons West Apartments'
+    
     }
+
 ];
